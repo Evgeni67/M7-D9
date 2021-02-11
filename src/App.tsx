@@ -4,11 +4,13 @@ import logo from "./logo.svg";
 import "./App.css";
 import Songs from "./components/songs";
 import SearchEngine from "./components/SearchEngine";
+import DetailsPage from "./components/detailsPage";
 import { AnyMxRecord } from "dns";
-
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 class App extends Component {
   state = {
     data: [],
+    currentSong:""
   };
   fetchData = async (name: string) => {
     let response = await fetch(
@@ -24,18 +26,42 @@ class App extends Component {
     );
     let data = await response.json();
     this.setState({ data: data.data });
-    console.log( this.state.data);
+    console.log(this.state.data);
   };
+  selectSong = (song:{}) =>{
+    this.setState({currentSong:song})
+  }
   componentDidMount = async () => {};
 
   render() {
     return (
       <div className="App">
-        <SearchEngine
-          data={this.state.data}
-          fetchData={(name) => this.fetchData(name)}
-        />
-        <Songs data={this.state.data} />
+        <Router>
+          <Route
+            path="/"
+            exact
+            render={(props) => (
+              <SearchEngine
+                data={this.state.data}
+                fetchData={(name) => this.fetchData(name)}
+              />
+            )}
+          />
+          <Route
+            path="/"
+            exact
+            render={(props) => (
+              <Songs data={this.state.data} selectSong = {(song)=> this.selectSong(song)}/>
+            )}
+          />
+          <Route
+            path="/detailsPage"
+            exact
+            render={(props) => (
+              <DetailsPage songURL={this.state.currentSong} />
+            )}
+          />
+        </Router>
       </div>
     );
   }
