@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import "./searchEngine.css";
 interface Props {
-  data: {};
+  data: any[];
   fetchData: (name: string) => void;
 }
 interface State {
@@ -18,7 +18,7 @@ class SearchEngine extends Component<Props, State> {
         <Row className="d-flex justify-content-center">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Apple_Music_logo.svg/1024px-Apple_Music_logo.svg.png" />
         </Row>
-        <Row className="d-flex justify-content-center">
+        <Row className="d-flex justify-content-center mb-4">
           <input
             type="text"
             className="inputForm"
@@ -29,7 +29,6 @@ class SearchEngine extends Component<Props, State> {
           ></input>
           <Button onClick={() => this.props.fetchData(this.state.textForSearch)}>Search</Button>
         </Row>
-        <hr />
       </>
     );
   }

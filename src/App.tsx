@@ -4,10 +4,9 @@ import logo from "./logo.svg";
 import "./App.css";
 import Songs from "./components/songs";
 import SearchEngine from "./components/SearchEngine";
-interface State {
-  data : [];
-}
-class App extends Component<State> {
+import { AnyMxRecord } from "dns";
+
+class App extends Component {
   state = {
     data: [],
   };
@@ -24,8 +23,8 @@ class App extends Component<State> {
       }
     );
     let data = await response.json();
-    console.log(typeof this.state.data);
     this.setState({ data: data.data });
+    console.log( this.state.data);
   };
   componentDidMount = async () => {};
 
